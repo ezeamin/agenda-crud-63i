@@ -22,6 +22,7 @@
       integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
       crossorigin="anonymous"
     ></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </head>
   <body>
     <header>
@@ -107,6 +108,22 @@
             <button type="submit" class="btn btn-danger">Guardar</button>
           </div>
         </form>
+      </section>
+      <section class="my-3 table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Imagen</th>
+              <th>Nombre</th>
+              <th>Telefono</th>
+              <th>Email</th>
+              <th>Notas</th>
+              <th class="text-end">Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-contactos"></tbody>
+        </table>
       </section>
     </main>
     <footer class="bg-secondary py-5 text-light">

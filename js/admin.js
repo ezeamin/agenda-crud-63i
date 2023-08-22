@@ -1,4 +1,11 @@
+"use strict";
+
 import { Contacto } from './Contacto.js';
+import {
+  guardarContactoEnLS,
+  obtenerContactosDeLS,
+  recargarTabla,
+} from './utils.js';
 import {
   validateEmail,
   validateImage,
@@ -18,7 +25,20 @@ const campoImagen = document.getElementById('input-imagen');
 const campoNotas = document.getElementById('input-notas');
 
 // -----------------------------------------
-// 2. Inicializacion de variables
+// 2. Inicializacion de contactos
+// -----------------------------------------
+
+let contactos = [];
+const contactosLS = obtenerContactosDeLS();
+
+if (contactosLS !== null) {
+  contactos = contactosLS;
+
+  recargarTabla();
+}
+
+// -----------------------------------------
+// 3. Inicializacion de variables
 // -----------------------------------------
 
 let nombre = '';
@@ -28,13 +48,13 @@ let imagen = '';
 let notas = '';
 
 // -----------------------------------------
-// 3. Event listeners
+// 4. Event listeners
 // -----------------------------------------
 
 campoNombre.addEventListener('blur', (e) => {
   const value = e.target.value;
 
-//   console.log(campoNombre)
+  //   console.log(campoNombre)
 
   if (validateName(value, campoNombre)) {
     nombre = value;
@@ -72,7 +92,7 @@ campoNotas.addEventListener('blur', (e) => {
 });
 
 // -----------------------------------------
-// 4. Event listener del form
+// 5. Event listener del form
 // -----------------------------------------
 
 form.addEventListener('submit', (e) => {
@@ -80,18 +100,37 @@ form.addEventListener('submit', (e) => {
 
   // Repetimos validacion por si no se produjo el blur
   if (
-    validateName(nombre,campoNombre) &&
-    validateNumber(numero,campoNumero) &&
-    validateEmail(email,campoEmail) &&
-    validateImage(imagen,campoImagen)
+    validateName(nombre, campoNombre) &&
+    validateNumber(numero, campoNumero) &&
+    validateEmail(email, campoEmail) &&
+    validateImage(imagen, campoImagen)
   ) {
     // Entra SOLAMENTE si TODAS son validas
+    
     // Crear el contacto
     const nuevoContacto = new Contacto(nombre, numero, email, imagen, notas);
 
-    console.log('Contacto creado', '🙂');
-    console.log(nuevoContacto);
+    // Agregarlo a la lista
+    guardarContactoEnLS(nuevoContacto);
 
-    // guardar el contacto -> JSON & localStorage
+    recargarTabla();
+
+    // Limpiar el formulario
+    form.reset();
+
+    // Resetear variables
+    nombre = '';
+    numero = '';
+    email = '';
+    imagen = '';
+    notas = '';
+
+    // Mensaje de exito
+    swal.fire({
+      icon: 'success',
+      title: 'Contacto agregado correctamente',
+      showConfirmButton: false,
+      timer: 1500,
+    });
   }
 });

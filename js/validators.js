@@ -1,3 +1,5 @@
+'use strict';
+
 export const validateName = (value, campo) => {
   // Minima long del nombre
   if (value.trim().length <= 2) {
