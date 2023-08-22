@@ -56,11 +56,37 @@
     </header>
     <main class="container my-4">
       <section class="p-3 bg-danger text-light rounded mb-2">
+        <h1 class="display-6 mb-2">Enviar un mensaje</h1>
+        <hr />
         <form>
-      
+          <fieldset>
+            <label for="select-contactos" class="form-label"
+              >Seleccione el destinatario</label
+            >
+            <select id="select-contactos" class="form-select"></select>
+          </fieldset>
+          <fieldset class="mt-2">
+            <label for="mensaje-contactos" class="form-label">Mensaje</label>
+            <textarea id="mensaje-contactos" class="form-control"></textarea>
+          </fieldset>
+          <div class="text-end mt-3">
+            <button type="submit" class="btn btn-secondary">
+              Enviar mensaje
+            </button>
+          </div>
         </form>
       </section>
-      <section class="row " id="section-contactos"></section>
+      <section>
+        <form class="d-flex gap-2 w-100" id="form-index-contactos">
+          <input
+            type="text"
+            class="form-control"
+            id="input-busqueda-contactos"
+          />
+          <button type="submit" class="btn btn-secondary">Buscar</button>
+        </form>
+        <section class="row" id="section-contactos"></section>
+      </section>
     </main>
     <footer class="bg-secondary py-5 text-light">
       <section class="container text-center">

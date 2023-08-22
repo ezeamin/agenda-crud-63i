@@ -1,14 +1,36 @@
+import { obtenerContactosDeLS } from '../utils.js';
+
+export const ordenarContactos = (contactos) => {
+  // .sort nos permite ordenar un arreglo, pero hay que
+  // indicarle que ordene respecto a *qué*. Para eso, creamos
+  // una pequeña funcion que se envia como callback, que utiliza
+  // un valor 'a', pos actual, y un valor 'b', siguiente elemento.
+  // El tecnicismo de la funcion no es necesario aprender.
+  const listaOrdenada = contactos.sort((a, b) => {
+    if (a.nombre > b.nombre) {
+      return 1;
+    }
+    if (a.nombre < b.nombre) {
+      return -1;
+    }
+    return 0;
+  });
+
+  return listaOrdenada;
+};
+
 export const crearCardContacto = (contacto) => {
   const sectionContactos = document.getElementById('section-contactos');
 
-  const div = document.createElement('div');
+  // Utilizo dos divs para darle padding al de fuera (outerDiv) y separar las cards entre sí
+  // El outerDiv va a tener las propiedades de col para posicionarla en la grilla
+
   const outerDiv = document.createElement('div');
+  const div = document.createElement('div');
   const divCardBody = document.createElement('div');
 
   outerDiv.classList.add('col-12', 'col-md-4', 'col-lg-3', 'p-2');
-
   div.classList.add('card', 'h-100', 'w-100');
-
   divCardBody.classList.add('card-body');
 
   const img = document.createElement('img');
@@ -44,7 +66,42 @@ export const crearCardContacto = (contacto) => {
 
   div.appendChild(img);
   div.appendChild(divCardBody);
-  outerDiv.appendChild(div);
 
+  outerDiv.appendChild(div);
+  
   sectionContactos.appendChild(outerDiv);
+};
+
+export const cargarSelectContactos = (contacto) => {
+  const selectContactos = document.getElementById('select-contactos');
+
+  const option = document.createElement('option');
+
+  option.innerText = contacto.nombre;
+  option.value = contacto.codigo;
+
+  selectContactos.appendChild(option);
+};
+
+export const filtrarLista = () => {
+  // 1. Leemos los contactos
+  const contactos = obtenerContactosDeLS();
+
+  // 2. Recuperamos el valor del input (si no lo encuentra, utilizar un string vacio)
+  const busqueda =
+    document.getElementById('input-busqueda-contactos').value || '';
+
+  // 3. Vaciamos la lista de contactos para reiniciarla
+  // no es necesario crear una variable extra porque despues no lo volvemos a usar
+  document.getElementById('section-contactos').innerHTML = '';
+
+  // 4. Filtramos la lista comparando el valor del input con el nombre de c/ contacto
+  const listaFiltrada = contactos.filter((contacto) =>
+    contacto.nombre.toLowerCase().includes(busqueda.toLowerCase())
+  );
+
+  // 5. Volvemos a cargar la lista
+  listaFiltrada.forEach((contacto) => {
+    crearCardContacto(contacto);
+  });
 };
