@@ -104,8 +104,28 @@
             <label for="input-notas" class="form-label">Notas (opcional)</label>
             <textarea id="input-notas" class="form-control"></textarea>
           </fieldset>
-          <div class="text-end mt-3">
-            <button type="submit" class="btn btn-danger">Guardar</button>
+          <div
+            class="d-flex flex-column flex-md-row align-items-center mt-3 gap-2"
+          >
+            <div
+              class="alert alert-warning py-1 mb-0 d-none"
+              id="alert-editando"
+            >
+              Estás editando al contacto
+              <span id="span-editando" class="fw-bold"></span>
+            </div>
+            <div class="ms-auto d-flex gap-2">
+              <button
+                type="button"
+                class="btn btn-secondary d-none"
+                id="button-cancelar-editar"
+              >
+                Cancelar edicion
+              </button>
+              <button type="submit" class="btn btn-danger" id="button-form">
+                Guardar
+              </button>
+            </div>
           </div>
         </form>
       </section>

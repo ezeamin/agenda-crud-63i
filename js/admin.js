@@ -1,11 +1,7 @@
-"use strict";
+'use strict';
 
-import { Contacto } from './Contacto.js';
-import {
-  guardarContactoEnLS,
-  obtenerContactosDeLS,
-  recargarTabla,
-} from './utils.js';
+import { añadirContacto, editarContacto } from './abm.js';
+import { estaEditando, obtenerContactosDeLS, recargarTabla } from './utils.js';
 import {
   validateEmail,
   validateImage,
@@ -38,99 +34,85 @@ if (contactosLS !== null) {
 }
 
 // -----------------------------------------
-// 3. Inicializacion de variables
+// 3. Event listeners
 // -----------------------------------------
 
-let nombre = '';
-let numero = '';
-let email = '';
-let imagen = '';
-let notas = '';
-
-// -----------------------------------------
-// 4. Event listeners
-// -----------------------------------------
+// # Solo sirve para validar a medida que el usuario escribe
+// # Notas no necesita, ya que es opcional
 
 campoNombre.addEventListener('blur', (e) => {
   const value = e.target.value;
 
-  //   console.log(campoNombre)
-
-  if (validateName(value, campoNombre)) {
-    nombre = value;
-  }
+  validateName(value, campoNombre);
 });
 
 campoNumero.addEventListener('blur', (e) => {
   const value = e.target.value;
 
-  if (validateNumber(value, campoNumero)) {
-    numero = value;
-  }
+  validateNumber(value, campoNumero);
 });
 
 campoEmail.addEventListener('blur', (e) => {
   const value = e.target.value;
 
-  if (validateEmail(value, campoEmail)) {
-    email = value;
-  }
+  validateEmail(value, campoEmail);
 });
 
 campoImagen.addEventListener('blur', (e) => {
   const value = e.target.value;
 
-  if (validateImage(value, campoImagen)) {
-    imagen = value;
-  }
-});
-
-campoNotas.addEventListener('blur', (e) => {
-  const value = e.target.value;
-
-  notas = value;
+  validateImage(value, campoImagen);
 });
 
 // -----------------------------------------
-// 5. Event listener del form
+// 4. Event listener del form
 // -----------------------------------------
 
 form.addEventListener('submit', (e) => {
   e.preventDefault();
 
+  // Leemos los valores de cada campo
+  const nombre = campoNombre.value;
+  const numero = campoNumero.value;
+  const email = campoEmail.value;
+  const imagen = campoImagen.value;
+  const notas = campoNotas.value;
+
+  // La validacion que sigue permite mostrar el mensaje de error
+  // en TODOS los campos, y no solo en el primero que no es valido.
+  // Para eso, guardamos en un array el resultado de cada validacion
+  // y luego preguntamos si todos los elementos del array son true (.every)
+  const isValidArray = [
+    validateName(nombre, campoNombre),
+    validateNumber(numero, campoNumero),
+    validateEmail(email, campoEmail),
+    validateImage(imagen, campoImagen),
+  ];
+
+  // Si alguno de los campos no es valido, no se envia el formulario
+  // .every evalúa si todos los elementos del array son true (Boolean, que es
+  // un "atajo" para buscar los true y false)
+  const isValid = isValidArray.every(Boolean);
+
   // Repetimos validacion por si no se produjo el blur
-  if (
-    validateName(nombre, campoNombre) &&
-    validateNumber(numero, campoNumero) &&
-    validateEmail(email, campoEmail) &&
-    validateImage(imagen, campoImagen)
-  ) {
-    // Entra SOLAMENTE si TODAS son validas
-    
-    // Crear el contacto
-    const nuevoContacto = new Contacto(nombre, numero, email, imagen, notas);
+  if (isValid) {
+    // 1. Agregar o editar el contacto
+    if (estaEditando()) {
+      editarContacto(nombre, numero, email, imagen, notas);
+    } else {
+      añadirContacto(nombre, numero, email, imagen, notas);
+    }
 
-    // Agregarlo a la lista
-    guardarContactoEnLS(nuevoContacto);
-
+    // 2. Recargar los datos con el nuevo contacto
     recargarTabla();
 
-    // Limpiar el formulario
+    // 3. Limpiar el formulario
     form.reset();
 
-    // Resetear variables
-    nombre = '';
-    numero = '';
-    email = '';
-    imagen = '';
-    notas = '';
-
-    // Mensaje de exito
-    swal.fire({
-      icon: 'success',
-      title: 'Contacto agregado correctamente',
-      showConfirmButton: false,
-      timer: 1500,
-    });
+    // 4. Resetear las clases
+    campoNombre.classList.remove('is-valid', 'is-invalid');
+    campoNumero.classList.remove('is-valid', 'is-invalid');
+    campoEmail.classList.remove('is-valid', 'is-invalid');
+    campoImagen.classList.remove('is-valid', 'is-invalid');
   }
 });
