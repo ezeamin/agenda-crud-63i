@@ -1,10 +1,10 @@
+import { obtenerContactosDeLS } from '../utils.js';
 import { Contacto } from './Contacto.js';
 import {
   cancelarEdicion,
   guardarContactoEnLS,
-  obtenerContactosDeLS,
   recargarTabla,
-} from './utils.js';
+} from './adminUtils.js';
 
 export const añadirContacto = (nombre, numero, email, imagen, notas) => {
   // Crear el contacto
