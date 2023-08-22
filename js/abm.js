@@ -27,7 +27,27 @@ export const editarContacto = (nombre, numero, email, imagen, notas) => {
   const codigo = sessionStorage.getItem('codigoContacto');
   const contactos = obtenerContactosDeLS();
 
-  // 2. Crear el contacto con los nuevos datos
+  // 2. Verificar que el contacto exista
+  const contactoSeleccionado = contactos.find(
+    (contacto) => contacto.codigo === codigo
+  );
+
+  if (!contactoSeleccionado) {
+    swal.fire({
+      icon: 'error',
+      title: 'Ocurrio un error',
+      text: 'No se pudo encontrar el contacto',
+      showConfirmButton: false,
+      timer: 1500,
+    });
+
+    cancelarEdicion();
+
+    // Evitar que la funcion continúe
+    return;
+  }
+
+  // 3. Crear el contacto con los nuevos datos
   const contactoEditado = new Contacto(
     nombre,
     numero,
@@ -37,7 +57,7 @@ export const editarContacto = (nombre, numero, email, imagen, notas) => {
     codigo
   );
 
-  // 3. Actualizar el array de contactos (.map devuelve un nuevo arreglo)
+  // 4. Actualizar el array de contactos (.map devuelve un nuevo arreglo)
   const contactosActualizados = contactos.map((contacto) => {
     // solo en el caso del contacto a editarse entra en el if
     // en el resto de los casos (else) devuelve el contacto sin modificar al nuevo arreglo
@@ -51,10 +71,10 @@ export const editarContacto = (nombre, numero, email, imagen, notas) => {
     }
   });
 
-  // 4. Guardar el nuevo array en localStorage
+  // 5. Guardar el nuevo array en localStorage
   localStorage.setItem('contactos', JSON.stringify(contactosActualizados));
 
-  // 5. Mensaje de exito
+  // 6. Mensaje de exito
   swal.fire({
     icon: 'success',
     title: 'Contacto editado correctamente',
@@ -62,7 +82,7 @@ export const editarContacto = (nombre, numero, email, imagen, notas) => {
     timer: 1500,
   });
 
-  // 6. Resetear al estado anterior
+  // 7. Resetear al estado anterior
   cancelarEdicion();
 };
 
