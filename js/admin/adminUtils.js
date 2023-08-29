@@ -58,6 +58,8 @@ export const cargarContactoEnTabla = (contacto, index, tbody) => {
 
   // ACCIONES ------------------------------------------------------
 
+  // # Este div cumple propósitos estéticos unicamente
+
   const tdAcciones = document.createElement("td");
   const divAcciones = document.createElement("div");
   divAcciones.classList.add(
@@ -90,22 +92,27 @@ export const cargarContactoEnTabla = (contacto, index, tbody) => {
 
   tbody.appendChild(tr);
 
-  // OTRA MANERA - NO RECOMENDABLE (no está completa en el ejemplo de aquí abajo)
+  // OTRA MANERA - NO RECOMENDABLE ------------------------------
   //   tr.innerHTML = `
   //         <td>${index + 1}</td>
-  //         <td><img src=${contacto.imagen} alt=${
-  //     contacto.nombre
-  //   } class="imagen-contacto"/></td>
+  //         <td><img src=${contacto.imagen} alt=${contacto.nombre} class="imagen-contacto" width="100" height="100"/></td>
   //         <td>${contacto.nombre}</td>
-  //         <td>${contacto.numero}</td>
+  //         <td>${contacto.telefono}</td>
   //         <td>${contacto.email}</td>
   //         <td>${contacto.notas}</td>
   //         <td>
+  //           <div class="d-flex flex-column flex-md-row justify-content-end gap-2 h-100">
+  //             <button class="btn btn-warning btn-sm" onclick="prepararEdicionContacto(${
+  //               contacto.codigo
+  //             })">
+  //             Editar
+  //             </button>
   //             <button class="btn btn-danger btn-sm" onclick="eliminarContacto(${
   //               contacto.codigo
   //             })">
   //             Eliminar
   //             </button>
+  //           </div>
   //         </td>
   //         `;
   //

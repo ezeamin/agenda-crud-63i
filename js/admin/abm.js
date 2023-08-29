@@ -4,18 +4,18 @@ import { obtenerContactosDeLS } from "../utils.js";
 import { Contacto } from "./Contacto.js";
 import {
   cancelarEdicion,
-  guardarContactoEnLS,
   cargarTabla,
+  guardarContactoEnLS,
 } from "./adminUtils.js";
 
 export const añadirContacto = (nombre, numero, email, imagen, notas) => {
-  // Crear el contacto
+  // 1. Crear el contacto
   const nuevoContacto = new Contacto(nombre, numero, email, imagen, notas);
 
-  // Agregarlo a la lista
+  // 2. Agregarlo a la lista
   guardarContactoEnLS(nuevoContacto);
 
-  // Mensaje de exito
+  // 3. Mensaje de exito
   swal.fire({
     icon: "success",
     title: "Contacto agregado correctamente",
@@ -34,6 +34,8 @@ export const editarContacto = (nombre, numero, email, imagen, notas) => {
     (contacto) => contacto.codigo === codigo,
   );
 
+  // 3. Si no existe, mostrar error y resetear al estado anterior
+  // Esto es improbable, pero puede suceder.
   if (!contactoSeleccionado) {
     swal.fire({
       icon: "error",
@@ -43,13 +45,14 @@ export const editarContacto = (nombre, numero, email, imagen, notas) => {
       timer: 1500,
     });
 
+    // Resetear al estado anterior
     cancelarEdicion();
 
     // Evitar que la funcion continúe
     return;
   }
 
-  // 3. Crear el contacto con los nuevos datos
+  // 4. Crear el contacto con los nuevos datos
   const contactoEditado = new Contacto(
     nombre,
     numero,
@@ -59,7 +62,7 @@ export const editarContacto = (nombre, numero, email, imagen, notas) => {
     codigo,
   );
 
-  // 4. Actualizar el array de contactos (.map devuelve un nuevo arreglo)
+  // 5. Actualizar el array de contactos (.map devuelve un nuevo arreglo)
   const contactosActualizados = contactos.map((contacto) => {
     // solo en el caso del contacto a editarse entra en el if
     // en el resto de los casos (else) devuelve el contacto sin modificar al nuevo arreglo
@@ -73,10 +76,10 @@ export const editarContacto = (nombre, numero, email, imagen, notas) => {
     }
   });
 
-  // 5. Guardar el nuevo array en localStorage
+  // 6. Guardar el nuevo array en localStorage
   localStorage.setItem("contactos", JSON.stringify(contactosActualizados));
 
-  // 6. Mensaje de exito
+  // 7. Mensaje de exito
   swal.fire({
     icon: "success",
     title: "Contacto editado correctamente",
@@ -84,7 +87,7 @@ export const editarContacto = (nombre, numero, email, imagen, notas) => {
     timer: 1500,
   });
 
-  // 7. Resetear al estado anterior
+  // 8. Resetear al estado anterior
   cancelarEdicion();
 };
 

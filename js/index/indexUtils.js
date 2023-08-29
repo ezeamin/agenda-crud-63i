@@ -2,10 +2,12 @@ import { obtenerContactosDeLS } from "../utils.js";
 
 export const ordenarContactos = (contactos) => {
   // .sort nos permite ordenar un arreglo, pero hay que
-  // indicarle que ordene respecto a *qué*. Para eso, creamos
+  // indicarle que ordene respecto A QUÉ. Para eso, creamos
   // una pequeña funcion que se envia como callback, que utiliza
   // un valor 'a', pos actual, y un valor 'b', siguiente elemento.
-  // El tecnicismo de la funcion no es necesario aprender.
+  // El tecnicismo de la funcion no es necesario aprender, pero está
+  // disponible en diversos portales de internet.
+
   const listaOrdenada = contactos.sort((a, b) => {
     if (a.nombre > b.nombre) {
       return 1;
@@ -77,6 +79,8 @@ export const cargarSelectContactos = (contacto) => {
 
   const option = document.createElement("option");
 
+  // Normalmente, el value de un option sabe ser un código o identificador único
+
   option.innerText = contacto.nombre;
   option.value = contacto.codigo;
 
@@ -97,7 +101,10 @@ export const filtrarLista = () => {
 
   // 4. Filtramos la lista comparando el valor del input con el nombre de c/ contacto
   const listaFiltrada = contactos.filter((contacto) =>
-    contacto.nombre.toLowerCase().includes(busqueda.toLowerCase()),
+    contacto.nombre
+      .trim()
+      .toLowerCase()
+      .includes(busqueda.trim().toLowerCase()),
   );
 
   // 5. Volvemos a cargar la lista

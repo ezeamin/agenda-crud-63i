@@ -1,7 +1,7 @@
 "use strict";
 
 import { añadirContacto, editarContacto } from "./abm.js";
-import { estaEditando, cargarTabla } from "./adminUtils.js";
+import { cargarTabla, estaEditando } from "./adminUtils.js";
 import {
   validateEmail,
   validateImage,
