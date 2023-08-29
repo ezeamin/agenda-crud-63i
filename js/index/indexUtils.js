@@ -46,7 +46,7 @@ export const crearCardContacto = (contacto) => {
 
   const pNumero = document.createElement("p");
   pNumero.classList.add("card-text");
-  pNumero.innerText = contacto.telefono;
+  pNumero.innerText = contacto.numero;
 
   const pEmail = document.createElement("p");
   pEmail.classList.add("card-text");

@@ -41,7 +41,7 @@ export const cargarContactoEnTabla = (contacto, index, tbody) => {
   // NUMERO ------------------------------------------------------
 
   const tdNumero = document.createElement("td");
-  tdNumero.innerText = contacto.telefono;
+  tdNumero.innerText = contacto.numero;
   tr.appendChild(tdNumero);
 
   // EMAIL ------------------------------------------------------
@@ -97,7 +97,7 @@ export const cargarContactoEnTabla = (contacto, index, tbody) => {
   //         <td>${index + 1}</td>
   //         <td><img src=${contacto.imagen} alt=${contacto.nombre} class="imagen-contacto" width="100" height="100"/></td>
   //         <td>${contacto.nombre}</td>
-  //         <td>${contacto.telefono}</td>
+  //         <td>${contacto.numero}</td>
   //         <td>${contacto.email}</td>
   //         <td>${contacto.notas}</td>
   //         <td>
@@ -143,7 +143,7 @@ export const prepararEdicionContacto = (codigo) => {
 
   // 3. Seleccionar los elementos del formulario
   const campoNombre = document.getElementById("input-nombre");
-  const campoNumero = document.getElementById("input-telefono");
+  const campoNumero = document.getElementById("input-numero");
   const campoEmail = document.getElementById("input-email");
   const campoImagen = document.getElementById("input-imagen");
   const campoNotas = document.getElementById("input-notas");
@@ -154,7 +154,7 @@ export const prepararEdicionContacto = (codigo) => {
   // 4. Cargar los datos del contacto en el formulario
   if (contactoSeleccionado) {
     campoNombre.value = contactoSeleccionado.nombre;
-    campoNumero.value = contactoSeleccionado.telefono;
+    campoNumero.value = contactoSeleccionado.numero;
     campoEmail.value = contactoSeleccionado.email;
     campoImagen.value = contactoSeleccionado.imagen;
     campoNotas.value = contactoSeleccionado.notas;
@@ -201,7 +201,7 @@ export const cancelarEdicion = () => {
 
   // 2. Limpiar el formulario
   const campoNombre = document.getElementById("input-nombre");
-  const campoNumero = document.getElementById("input-telefono");
+  const campoNumero = document.getElementById("input-numero");
   const campoEmail = document.getElementById("input-email");
   const campoImagen = document.getElementById("input-imagen");
   const campoNotas = document.getElementById("input-notas");

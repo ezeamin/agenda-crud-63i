@@ -24,7 +24,7 @@ if (!estaLogueado) {
 
 const form = document.getElementById("form-contacto");
 const campoNombre = document.getElementById("input-nombre");
-const campoNumero = document.getElementById("input-telefono");
+const campoNumero = document.getElementById("input-numero");
 const campoEmail = document.getElementById("input-email");
 const campoImagen = document.getElementById("input-imagen");
 const campoNotas = document.getElementById("input-notas");
