@@ -1,67 +1,76 @@
-'use strict';
+"use strict";
 
-import { añadirContacto, editarContacto } from './abm.js';
-import { estaEditando, recargarTabla } from './adminUtils.js';
+import { añadirContacto, editarContacto } from "./abm.js";
+import { estaEditando, cargarTabla } from "./adminUtils.js";
 import {
   validateEmail,
   validateImage,
   validateName,
   validateNumber,
-} from './validators.js';
+} from "./validators.js";
 
 // -----------------------------------------
-// 1. Seleccion de elementos
+// 1. Proteger ruta
 // -----------------------------------------
 
-const form = document.getElementById('form-contacto');
-const campoNombre = document.getElementById('input-nombre');
-const campoNumero = document.getElementById('input-telefono');
-const campoEmail = document.getElementById('input-email');
-const campoImagen = document.getElementById('input-imagen');
-const campoNotas = document.getElementById('input-notas');
+const estaLogueado = JSON.parse(sessionStorage.getItem("estaLogueado"));
+if (!estaLogueado) {
+  window.location.href = "../index.html";
+}
 
 // -----------------------------------------
-// 2. Inicializacion de contactos
+// 2. Seleccion de elementos
 // -----------------------------------------
 
-recargarTabla();
+const form = document.getElementById("form-contacto");
+const campoNombre = document.getElementById("input-nombre");
+const campoNumero = document.getElementById("input-telefono");
+const campoEmail = document.getElementById("input-email");
+const campoImagen = document.getElementById("input-imagen");
+const campoNotas = document.getElementById("input-notas");
 
 // -----------------------------------------
-// 3. Event listeners
+// 3. Inicializacion de contactos
+// -----------------------------------------
+
+cargarTabla();
+
+// -----------------------------------------
+// 4. Event listeners
 // -----------------------------------------
 
 // # Solo sirve para validar a medida que el usuario escribe
 // # Notas no necesita, ya que es opcional
 
-campoNombre.addEventListener('blur', (e) => {
+campoNombre.addEventListener("blur", (e) => {
   const value = e.target.value;
 
   validateName(value, campoNombre);
 });
 
-campoNumero.addEventListener('blur', (e) => {
+campoNumero.addEventListener("blur", (e) => {
   const value = e.target.value;
 
   validateNumber(value, campoNumero);
 });
 
-campoEmail.addEventListener('blur', (e) => {
+campoEmail.addEventListener("blur", (e) => {
   const value = e.target.value;
 
   validateEmail(value, campoEmail);
 });
 
-campoImagen.addEventListener('blur', (e) => {
+campoImagen.addEventListener("blur", (e) => {
   const value = e.target.value;
 
   validateImage(value, campoImagen);
 });
 
 // -----------------------------------------
-// 4. Event listener del form
+// 5. Event listener del form
 // -----------------------------------------
 
-form.addEventListener('submit', (e) => {
+form.addEventListener("submit", (e) => {
   e.preventDefault();
 
   // Leemos los valores de cada campo
@@ -97,15 +106,17 @@ form.addEventListener('submit', (e) => {
     }
 
     // 2. Recargar los datos con el nuevo contacto
-    recargarTabla();
+    cargarTabla();
 
     // 3. Limpiar el formulario
     form.reset();
 
     // 4. Resetear las clases
-    campoNombre.classList.remove('is-valid', 'is-invalid');
-    campoNumero.classList.remove('is-valid', 'is-invalid');
-    campoEmail.classList.remove('is-valid', 'is-invalid');
-    campoImagen.classList.remove('is-valid', 'is-invalid');
+    campoNombre.classList.remove("is-valid", "is-invalid");
+    campoNumero.classList.remove("is-valid", "is-invalid");
+    campoEmail.classList.remove("is-valid", "is-invalid");
+    campoImagen.classList.remove("is-valid", "is-invalid");
   }
 });
+
+

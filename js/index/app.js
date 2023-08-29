@@ -1,12 +1,12 @@
-'use strict';
+"use strict";
 
-import { obtenerContactosDeLS } from '../utils.js';
+import { obtenerContactosDeLS } from "../utils.js";
 import {
   cargarSelectContactos,
   crearCardContacto,
   filtrarLista,
   ordenarContactos,
-} from './indexUtils.js';
+} from "./indexUtils.js";
 
 // 1. Recuperar lista desde LS
 const contactos = ordenarContactos(obtenerContactosDeLS());
@@ -22,9 +22,9 @@ contactos.forEach((contacto) => {
 });
 
 // 4. Manejar formulario de busqueda
-const form = document.getElementById('form-index-contactos');
+const form = document.getElementById("form-index-contactos");
 
-form.addEventListener('submit', (e) => {
+form.addEventListener("submit", (e) => {
   e.preventDefault();
 
   filtrarLista();

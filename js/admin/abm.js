@@ -1,10 +1,12 @@
-import { obtenerContactosDeLS } from '../utils.js';
-import { Contacto } from './Contacto.js';
+"use strict";
+
+import { obtenerContactosDeLS } from "../utils.js";
+import { Contacto } from "./Contacto.js";
 import {
   cancelarEdicion,
   guardarContactoEnLS,
-  recargarTabla,
-} from './adminUtils.js';
+  cargarTabla,
+} from "./adminUtils.js";
 
 export const añadirContacto = (nombre, numero, email, imagen, notas) => {
   // Crear el contacto
@@ -15,8 +17,8 @@ export const añadirContacto = (nombre, numero, email, imagen, notas) => {
 
   // Mensaje de exito
   swal.fire({
-    icon: 'success',
-    title: 'Contacto agregado correctamente',
+    icon: "success",
+    title: "Contacto agregado correctamente",
     showConfirmButton: false,
     timer: 1500,
   });
@@ -24,19 +26,19 @@ export const añadirContacto = (nombre, numero, email, imagen, notas) => {
 
 export const editarContacto = (nombre, numero, email, imagen, notas) => {
   // 1. Traer la lista de contactos y el codigo
-  const codigo = sessionStorage.getItem('codigoContacto');
+  const codigo = sessionStorage.getItem("codigoContacto");
   const contactos = obtenerContactosDeLS();
 
   // 2. Verificar que el contacto exista
   const contactoSeleccionado = contactos.find(
-    (contacto) => contacto.codigo === codigo
+    (contacto) => contacto.codigo === codigo,
   );
 
   if (!contactoSeleccionado) {
     swal.fire({
-      icon: 'error',
-      title: 'Ocurrio un error',
-      text: 'No se pudo encontrar el contacto',
+      icon: "error",
+      title: "Ocurrio un error",
+      text: "No se pudo encontrar el contacto",
       showConfirmButton: false,
       timer: 1500,
     });
@@ -54,7 +56,7 @@ export const editarContacto = (nombre, numero, email, imagen, notas) => {
     email,
     imagen,
     notas,
-    codigo
+    codigo,
   );
 
   // 4. Actualizar el array de contactos (.map devuelve un nuevo arreglo)
@@ -72,12 +74,12 @@ export const editarContacto = (nombre, numero, email, imagen, notas) => {
   });
 
   // 5. Guardar el nuevo array en localStorage
-  localStorage.setItem('contactos', JSON.stringify(contactosActualizados));
+  localStorage.setItem("contactos", JSON.stringify(contactosActualizados));
 
   // 6. Mensaje de exito
   swal.fire({
-    icon: 'success',
-    title: 'Contacto editado correctamente',
+    icon: "success",
+    title: "Contacto editado correctamente",
     showConfirmButton: false,
     timer: 1500,
   });
@@ -90,12 +92,12 @@ export const eliminarContacto = (codigo) => {
   // Siempre confirmar la eliminacion
   swal
     .fire({
-      title: '¿Estás seguro?',
-      text: 'Una vez eliminado, no podrás recuperar el contacto',
-      icon: 'warning',
+      title: "¿Estás seguro?",
+      text: "Una vez eliminado, no podrás recuperar el contacto",
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonText: 'Eliminar',
-      cancelButtonText: 'Cancelar',
+      confirmButtonText: "Eliminar",
+      cancelButtonText: "Cancelar",
     })
     .then((result) => {
       if (result.isConfirmed) {
@@ -104,22 +106,22 @@ export const eliminarContacto = (codigo) => {
 
         // 2. Filtrar el contacto a eliminar
         const contactosActualizados = contactos.filter(
-          (contacto) => contacto.codigo !== codigo
+          (contacto) => contacto.codigo !== codigo,
         );
 
         // 3. Guardar el nuevo array en localStorage
         localStorage.setItem(
-          'contactos',
-          JSON.stringify(contactosActualizados)
+          "contactos",
+          JSON.stringify(contactosActualizados),
         );
 
         // 4. Recargar la tabla
-        recargarTabla();
+        cargarTabla();
 
         // 5. Mensaje de exito
         swal.fire({
-          icon: 'success',
-          title: 'Contacto eliminado correctamente',
+          icon: "success",
+          title: "Contacto eliminado correctamente",
           showConfirmButton: false,
           timer: 1500,
         });

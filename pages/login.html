@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
@@ -28,7 +28,7 @@
     <header>
       <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container">
-          <a class="navbar-brand" href="#">Agenda</a>
+          <a class="navbar-brand" href="../index.html">Agenda</a>
           <button
             class="navbar-toggler"
             type="button"
@@ -41,19 +41,14 @@
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarAgenda">
-            <ul class="navbar-nav mb-2 mb-lg-0 w-100">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" href="../index.html">Inicio</a>
+              </li>
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="#"
-                  >Inicio</a
+                  >Admin</a
                 >
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="./pages/login.html">Admin</a>
-              </li>
-              <li class="nav-item ms-md-auto">
-                <button class="nav-link text-danger d-none" id="boton-salir">
-                  Salir
-                </button>
               </li>
             </ul>
           </div>
@@ -61,45 +56,32 @@
       </nav>
     </header>
     <main class="container my-4">
-      <section class="p-3 bg-danger text-light rounded mb-2">
-        <h1 class="display-6 mb-2">Enviar un mensaje</h1>
-        <hr />
-        <form>
-          <fieldset>
-            <label for="select-contactos" class="form-label"
-              >Seleccione el destinatario</label
-            >
-            <select id="select-contactos" class="form-select"></select>
-          </fieldset>
-          <fieldset class="mt-2">
-            <label for="mensaje-contactos" class="form-label">Mensaje</label>
-            <textarea id="mensaje-contactos" class="form-control"></textarea>
-          </fieldset>
-          <div class="text-end mt-3">
-            <button type="submit" class="btn btn-secondary">
-              Enviar mensaje
-            </button>
-          </div>
-        </form>
-      </section>
-      <section>
-        <form class="d-flex gap-2 w-100" id="form-index-contactos">
-          <input
-            type="text"
-            class="form-control"
-            id="input-busqueda-contactos"
-          />
-          <button type="submit" class="btn btn-secondary">Buscar</button>
-        </form>
-        <section class="row" id="section-contactos"></section>
-      </section>
+      <h1 class="display-6">Iniciar sesion</h1>
+      <hr />
+      <form class="bg-secondary rounded p-3 text-white" id="form-login">
+        <div class="alert alert-warning d-none" id="alert-login">
+          Las credenciales no coinciden con nuestros registros.
+        </div>
+        <fieldset>
+          <label for="input-usuario" class="form-label">Usuario</label>
+          <input type="text" id="input-usuario" class="form-control" />
+          <div class="invalid-feedback">Ingrese un usuario valido</div>
+        </fieldset>
+        <fieldset class="mt-2">
+          <label for="input-contraseña" class="form-label">Contraseña</label>
+          <input type="password" id="input-contraseña" class="form-control" />
+          <div class="invalid-feedback">Ingrese una contraseña valida</div>
+        </fieldset>
+        <div class="text-end mt-3">
+          <button type="submit" class="btn btn-primary">Iniciar sesion</button>
+        </div>
+      </form>
     </main>
     <footer class="bg-secondary py-5 text-light">
       <section class="container text-center">
         <p>&copy; Todos los derechos reservados</p>
       </section>
     </footer>
-    <script type="module" src="./js/index/app.js"></script>
-    <script type="module" src="./js/logout.js"></script>
+    <script type="module" src="../js/login/app.js"></script>
   </body>
 </html>

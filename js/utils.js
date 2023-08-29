@@ -1,5 +1,5 @@
 export const obtenerContactosDeLS = () => {
-  const contactosLS = JSON.parse(localStorage.getItem('contactos'));
+  const contactosLS = JSON.parse(localStorage.getItem("contactos"));
 
   if (contactosLS) {
     return contactosLS;
