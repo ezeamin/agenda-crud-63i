@@ -1,6 +1,5 @@
 'use strict';
 
-import { obtenerContactosDeLS } from '../utils.js';
 import { añadirContacto, editarContacto } from './abm.js';
 import { estaEditando, recargarTabla } from './adminUtils.js';
 import {
@@ -25,11 +24,7 @@ const campoNotas = document.getElementById('input-notas');
 // 2. Inicializacion de contactos
 // -----------------------------------------
 
-const contactos = obtenerContactosDeLS();
-
-if (contactos.length > 0) {
-  recargarTabla();
-}
+recargarTabla();
 
 // -----------------------------------------
 // 3. Event listeners
