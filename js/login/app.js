@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 
-import { User, UserWithoutPassword } from './User.js';
-import { validatePassword, validateUsername } from './validators.js';
+import { User, UserWithoutPassword } from "./User.js";
+import { validatePassword, validateUsername } from "./validators.js";
 
 // -----------------------------------------
 // 1. Proteger ruta
@@ -9,11 +9,11 @@ import { validatePassword, validateUsername } from './validators.js';
 
 // # Es necesario parsear, porque no es lo mismo "false" (string) que false (booleano)
 
-const estaLogueado = JSON.parse(sessionStorage.getItem('estaLogueado'));
+const estaLogueado = JSON.parse(sessionStorage.getItem("estaLogueado"));
 if (estaLogueado) {
   // Si está logueado, no debería poder acceder al login
   // y debería ser redireccionado a la pagina de admin
-  window.location.href = './admin.html';
+  window.location.href = "./admin.html";
 }
 
 // -----------------------------------------
@@ -24,16 +24,16 @@ if (estaLogueado) {
 // # ya que los usuarios estarían en una base de datos
 // # protegida, y no en el codigo fuente.
 
-const usuarioAdmin = new User('admin', 'admin');
+const usuarioAdmin = new User("admin", "admin");
 
 // -----------------------------------------
 // 3. Seleccion de elementos
 // -----------------------------------------
 
-const formLogin = document.getElementById('form-login');
-const campoUsuario = document.getElementById('input-usuario');
-const campoContraseña = document.getElementById('input-contraseña');
-const alertElement = document.getElementById('alert-login');
+const formLogin = document.getElementById("form-login");
+const campoUsuario = document.getElementById("input-usuario");
+const campoContraseña = document.getElementById("input-contraseña");
+const alertElement = document.getElementById("alert-login");
 
 // # No es necesario manejar eventos blur, ya que
 // # las validaciones solo se van a realizar al enviar el form
@@ -42,7 +42,7 @@ const alertElement = document.getElementById('alert-login');
 // 4. Event listener del form
 // -----------------------------------------
 
-formLogin.addEventListener('submit', (e) => {
+formLogin.addEventListener("submit", (e) => {
   // Evitar que el form se envie refrescando la página
   e.preventDefault();
 
@@ -76,9 +76,9 @@ formLogin.addEventListener('submit', (e) => {
     contraseña === usuarioAdmin.contraseña
   ) {
     // Ocultar alert de error y resetear clases de los campos
-    alertElement.classList.add('d-none');
-    campoUsuario.classList.remove('is-invalid');
-    campoContraseña.classList.remove('is-invalid');
+    alertElement.classList.add("d-none");
+    campoUsuario.classList.remove("is-invalid");
+    campoContraseña.classList.remove("is-invalid");
 
     // Guardar informacion del usuario, sin contraseña
     // (en este caso, este usuario es identico al usuario "admin"
@@ -89,22 +89,22 @@ formLogin.addEventListener('submit', (e) => {
     // Guardar en sessionStorage
     // estaLogueado va a permitir proteger la ruta
     // usuario va a permitir acceder a la informacion del usuario más adelante
-    sessionStorage.setItem('estaLogueado', true);
-    sessionStorage.setItem('usuario', JSON.stringify(user));
+    sessionStorage.setItem("estaLogueado", true);
+    sessionStorage.setItem("usuario", JSON.stringify(user));
 
     swal
       .fire({
-        icon: 'success',
-        title: 'Bienvenido',
+        icon: "success",
+        title: "Bienvenido",
         showConfirmButton: false,
         timer: 1500,
       })
       .then(() => {
         // Despues de 1500ms, redireccionar a la pagina de admin
-        window.location.href = './admin.html';
+        window.location.href = "./admin.html";
       });
   } else {
     // Si las credenciales no coinciden, mostrar el alert de error
-    alertElement.classList.remove('d-none');
+    alertElement.classList.remove("d-none");
   }
 });

@@ -1,7 +1,7 @@
 "use strict";
 
 // Agregar más validadores acá está igual de bien que
-// agregarlos en un único archivo validators.js en 
+// agregarlos en un único archivo validators.js en
 // la carpeta js/
 
 export const validateUsername = (value, campo) => {

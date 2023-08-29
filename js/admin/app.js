@@ -118,5 +118,3 @@ form.addEventListener("submit", (e) => {
     campoImagen.classList.remove("is-valid", "is-invalid");
   }
 });
-
-

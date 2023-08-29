@@ -1,5 +1,7 @@
 # CRUD Agenda 📒👨🏼‍💻👨🏼
+
 ---
+
 ## Descripción del proyecto
 
 El proyecto consiste en una agenda de contactos, en la cual se pueden realizar las siguientes operaciones:
@@ -26,10 +28,9 @@ El proyecto está 100% documentado por medio de comentarios en el código, por l
 - El proyecto no posee backend, por lo que los datos se almacenan en el LocalStorage y SessionStorage del navegador.
 - El proyecto no posee un sistema de registro de usuarios, por lo que el usuario administrador se encuentra hardcodeado en el código. Este es
 
-```	
+```
     usuario: admin
     contraseña: admin
 ```
 
 Con mucho amor para la Comision 63i de RollingCode ❤️
-
